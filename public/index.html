@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css.css">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="velocity.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="socketjs.js"></script>
+	</head>
+	<div class="container">
+		<nav>
+			<a href="http://localhost:1337/other.html">Other Options</a> | <a href="">Configurations</a>
+		</nav>
+		<form class="add">
+			<div class="entry">
+				<p for="pname">Patient name</p>
+				<input type="text" name="pname" class="pname"></div>
+			<div class="entry">
+				<p for="page">Patient Age</p>
+				<input type="text" name="page" class="page"></div>
+			<div class="entry">
+				<p for="pvisits"># of Visits</p>
+				<input type="text" name="pvisits" class="pvisits"></div>
+			<div class="entry">
+				<p for="pdate">Last Visit</p>
+				<input type="text" name="pdate" class="pdate"></div>
+			<div class="entry">
+				<p class="details">Details</p>
+				<textarea name="pdetails" class="pdetails"></textarea></div>
+			<div class="submitdiv"><button class="submitbtn">Add Entry</button></div>
+		</form>
+		<form class="call">
+			<input type="text" class="searchtxt"><button class="searchbtn">Find</button>
+			<div class="resultdiv"><p class="sresult age"></p></div>
+			<div class="resultdiv"><p class="sresult visits"></p></div>
+			<div class="resultdiv"><p class="sresult date"></p></div>
+			<div class="resultdiv details"><p class="sresult detail"></p></div>
+		</form>
+
+	</div>
+</html>
