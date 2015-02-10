@@ -2,7 +2,9 @@ var socket = io.connect("http://localhost:1337");
 var ind = 0;
 var listind = 0;
 var dirName;
+var shown = false;
 $(document).ready(function() {
+	$(".useless").children().css("display", "none")
 	socket.emit("getConfig", "halp");
 	socket.on("config", function(data){
 		$(".entry").height(data.keyHeight)
@@ -167,6 +169,18 @@ $(document).ready(function() {
 			}
 			else{
 				$(".config").velocity("fadeOut",200);
+			}
+		});
+		$(".morediv").on("click", function(){
+			$(this).find(".more").toggleClass("rotated");
+			if(shown === false){
+				$(".useless").children().velocity("slideDown", {stagger: 80});
+				shown = !shown;
+				$(".pgh").velocity("scroll", {duration:300, delay:300});
+			}
+			else{
+				$(".useless").children().velocity("slideUp", {stagger: 80 });
+				shown = !shown;
 			}
 		})
 });			

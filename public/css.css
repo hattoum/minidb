@@ -13,7 +13,7 @@ form{
 }
 .add p{
 	display: inline-block;
-	width: 150px;
+	width: 200px;
 	padding-left: 20px;
 	padding-top: 10px;
 }
@@ -22,6 +22,7 @@ form{
 }
 .entry{
 	width: 500px;
+	margin-left: 20px;
 }
 input {
 	width: 300px;
@@ -157,13 +158,13 @@ input{
 }
 .entry .details{
  	padding: 20px;
-	position: relative;
-	bottom: 85px;
+ 	padding-bottom: 0;
+	width: 200px;
+	display: block;
 }
 .pdetails{
-	position: relative;
-	left: 72px;
 	max-height: 100px;
+	margin-bottom: 50px;
 }
 .config{
 	display: none;
@@ -188,7 +189,7 @@ input{
 }
 .submitbtn{
 	position: relative;
-	left: 500px;
+	left: 350px;
 }
 .genBtn{
 	border: none;
@@ -200,4 +201,27 @@ input{
 }
 .genBtn:hover{
 	color: #fff;
+}
+.useless{
+	display: block;
+}
+.morediv{
+	width: 340px;
+	text-align: center;
+	background: rgba(240,240,240,0.1);
+}
+.morediv p{
+	display: inline;
+	position: relative;
+	bottom: 12px;
+}
+.more{
+	font-size: 50px;
+	letter-spacing: 0px;
+	transform: rotate(-90deg);
+	display: inline-block;
+	transition: all 0.4s ease;
+}
+.rotated{
+	transform: rotate(0deg);
 }
