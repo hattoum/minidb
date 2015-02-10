@@ -3,7 +3,10 @@ var ind = 0;
 var listind = 0;
 var dirName;
 var shown = false;
+var title = ["","Hello!","This is a title","Good Morning","Good Evening","So?","Hey there","Random Title","Smile","Listen...","It was not Luck"];
+var randIndex = Math.floor(Math.random()*11);
 $(document).ready(function() {
+	$("title").text(title[randIndex]);
 	$(".useless").children().css("display", "none")
 	socket.emit("getConfig", "halp");
 	socket.on("config", function(data){
@@ -184,3 +187,4 @@ $(document).ready(function() {
 			}
 		})
 });			
+console.log(title.length)

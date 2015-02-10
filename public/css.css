@@ -180,9 +180,12 @@ input{
 	margin-top: 30%;
 	width: 100%;
 	border-radius: 25px;
-	background: rgba(230,230,230,0.9);
+	background: rgba(230,230,230,0.7);
 	padding: 40px;
 	width: 300px;
+}
+.configbtn{
+	margin-top: 10px;
 }
 .innerConfig label{
 	display: block;

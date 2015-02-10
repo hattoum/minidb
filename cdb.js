@@ -1,6 +1,6 @@
 var fs = require("fs");
 var da = new Date();
-var date = (da.getDay()+1)+"-"+(da.getMonth()+1)+"-"+da.getFullYear();
+var date = (da.getDate()+1)+"-"+(da.getMonth()+1)+"-"+da.getFullYear();
 function setdb(name, params){
 	//fs.readFile(name+".json", function(err, data){console.log(err)});
 	fs.mkdir("json/"+name);

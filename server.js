@@ -46,4 +46,7 @@ io.on("connection", function(client){
 	})
 })
 server.listen(1337);
-console.log("Listening on port 1337")
+console.log("Listening on port 1337");
+var da = new Date();
+var date = (da.getDate())+"-"+(da.getMonth()+1)+"-"+da.getFullYear();
+console.log(date);
