@@ -9,10 +9,8 @@ var path = require("path");
 app.use(express.static(__dirname+"/public"));
 io.on("connection", function(client){
 	client.on("clientNewEntry",function(data){
-		console.log("recieved");
 		var dataStr = JSON.stringify(data);
 		var dataName = data.Name;
-		console.log(dataName);
 		cdb.setdb(dataName, dataStr);
 		io.emit("done", "Entry Successful");
 	});
@@ -32,7 +30,6 @@ io.on("connection", function(client){
 	client.on("visitQuery", function(data){
 		var jsonQuery = JSON.parse(fs.readFileSync("./json/"+data.dir+"/"+data.date));
 		io.emit("jsonQuery", jsonQuery);
-		console.log("dun");
 	});
 	client.on("getAllPatientsCreate", function(data){
 		io.emit("patientsArrayCreate", fs.readdirSync("./json"));
@@ -40,6 +37,13 @@ io.on("connection", function(client){
 	client.on("getAllPatientsQuery", function(data){
 		io.emit("patientsArrayQuery", fs.readdirSync("./json"));
 	})
+	client.on("getConfig", function(data){
+		var jsonConfig = JSON.parse(fs.readFileSync("./config/config.json"));
+		io.emit("config", jsonConfig);
+	});
+	client.on("configChange",function(data){
+		fs.writeFileSync("./config/config.json", data);
+	})
 })
 server.listen(1337);
-console.log("Server listening on port 1337")
+console.log("Listening on port 1337")

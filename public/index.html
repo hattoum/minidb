@@ -7,9 +7,12 @@
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="socketjs.js"></script>
 	</head>
+	<body>
+	<div class="config"></div>
 	<div class="container">
 		<nav>
-			<a href="http://localhost:1337/other.html">Other Options</a> | <a href="">Configurations</a>
+			<a href="http://localhost:1337">&#8962;</a>|
+			<a href="http://localhost:1337/other.html">Other Options</a> | <a class="ajaxConfig">Configurations</a>
 		</nav>
 		<form class="add">
 			<div class="entry">
@@ -73,13 +76,14 @@
 				<p for="pgh">General History</p>
 				<input type="text" name="pgh" class="pgh"></div>
 			<div class="entry">
-				<p class="details">Details</p>
+				<label class="details" for="pdetails">Details</label>
 				<textarea name="pdetails" class="pdetails"></textarea></div>
-			<div class="submitdiv"><button class="submitbtn">Add Entry</button></div>
+			<div class="submitdiv"><button class="submitbtn genBtn">Add Entry</button></div>
 		</form>
 		<form class="call">
 			<input type="text" class="searchtxt"><button class="searchbtn">Find</button>
 		</form>
 
 	</div>
+	</body>
 </html>

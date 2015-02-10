@@ -8,7 +8,6 @@ function setdb(name, params){
 }
 function getdb(name){
 	var dirray = fs.readdirSync("json/"+name);
-	console.log(dirray);
 	return dirray;
 	
 }
