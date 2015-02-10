@@ -11,7 +11,9 @@ $(document).ready(function() {
 	socket.emit("getConfig", "halp");
 	socket.on("config", function(data){
 		$(".entry").height(data.keyHeight)
-		$("body").css({"font-size": data.fontSize})
+		$("body").find(".container").find(".entry").find("p").css({"font-size": data.fontSize});
+		$("body").find(".container").find(".entry").find("label").css({"font-size": data.fontSize})
+		$("body").find(".container").find(".morediv").find("p").css({"font-size": data.fontSize})
 	})
 	$(".pname").on("focus",function(){
 		socket.emit("getAllPatientsCreate","hehe");
@@ -187,4 +189,3 @@ $(document).ready(function() {
 			}
 		})
 });			
-console.log(title.length)
