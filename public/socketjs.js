@@ -32,11 +32,12 @@ $(document).ready(function() {
 		})
 	})
 	$(".submitbtn").on("click", function(event){
-	event.preventDefault();
-	$("nav").velocity("scroll", { 
-  		duration: 800,
-  		delay: 500
-	});
+		event.preventDefault();
+		$("nav").velocity("scroll", { 
+  			duration: 800,
+  			delay: 500
+		});
+
 		var pname = $(".pname").val();
 		var page = $(".page").val();
 		var pcomplaint = $(".pcomplaint").val();
@@ -58,31 +59,34 @@ $(document).ready(function() {
 		var pch = $(".pch").val();
 		var pgh = $(".pgh").val();
 		var bpressure = $(".bloodpressure").val();
-	socket.emit("clientNewEntry", 
-		{
-			"Name": pname,
-			"Age": page,
-			"Complaints": pcomplaint,
-			"HeartRate": phr,
-			"bloodpressure": bpressure,
-			"GeneralExamination": pge,
-			"LocalExamination": ple,
-			"ECG": pecg,
-			"Echo": pecho,
-			"Lab": plab,
-			"Other": pother,
-			"Impression": pimpression,
-			"Plan": pplan,
-			"Medication": pmed,
-			"Telphone": ptel,
-			"DM": pdm,
-			"Hypertension": pht,
-			"Smoking": psmoking,
-			"CardiacHistory": pch,
-			"GeneralHistory": pgh,
-			"details": pdetails
+		var pentryname = $(".pentryname").val();
+		socket.emit("clientNewEntry", 
+			{
+				"Name": pname,
+				"Age": page,
+				"Complaints": pcomplaint,
+				"HeartRate": phr,
+				"bloodpressure": bpressure,
+				"GeneralExamination": pge,
+				"LocalExamination": ple,
+				"ECG": pecg,
+				"Echo": pecho,
+				"Lab": plab,
+				"Other": pother,
+				"Impression": pimpression,
+				"Plan": pplan,
+				"Medication": pmed,
+				"Telphone": ptel,
+				"DM": pdm,
+				"Hypertension": pht,
+				"Smoking": psmoking,
+				"CardiacHistory": pch,
+				"GeneralHistory": pgh,
+				"EntryName": pentryname,
+				"details": pdetails
+			});
+		console.log(pentryname)
 		});
-	});
 	socket.on("done", function(data){
 	$("input").val("");
 	$("texarea").text("");
@@ -156,6 +160,9 @@ $(document).ready(function() {
 				$("<p class='dateItem'>"+entry+": "+data[entry]+"</p>").appendTo(".call").velocity("slideDown",100);
 			})
 		});
+		socket.on("jsonQueryFail",function(data){
+			$("<p class='dateItem'>Record Corrupted!</p>").appendTo(".call").velocity("slideDown",100);
+		})
 		$(".ajaxConfig").on("click", function(){
 			$.ajax("config.html", {
 				success: function(data){
