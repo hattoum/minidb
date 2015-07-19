@@ -195,4 +195,8 @@ $(document).ready(function() {
 				shown = !shown;
 			}
 		})
+		$(".clear").on("click",function(){
+			$(".entry input").val("")
+
+		});
 });			
