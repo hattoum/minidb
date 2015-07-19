@@ -8,6 +8,12 @@ var cdb = require("./cdb.js");
 var fs = require("fs");
 var path = require("path");
 app.use(express.static(__dirname+"/public"));
+try{
+	fs.unlinkSync("./updates");
+}
+catch(err){
+	console.log("Remember to check for updates!")
+}
 io.on("connection", function(client){
 	client.on("clientNewEntry",function(data){
 		var dataStr = JSON.stringify(data);
@@ -54,7 +60,6 @@ io.on("connection", function(client){
 	})
 })
 server.listen(1337);
-console.log("Listening on port 1337");
 var da = new Date();
 var date = (da.getDate())+"-"+(da.getMonth()+1)+"-"+da.getFullYear();
-console.log(date);
+console.log("Ready to work....  "+date);
