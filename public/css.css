@@ -19,6 +19,7 @@ form{
 	height: 100%;
 }
 .add p{
+	color: #ff0044;
 	display: inline-block;
 	width: 220px;
 	padding-left: 20px;
