@@ -57,6 +57,10 @@ io.on("connection", function(client){
 	client.on("configChange",function(data){
 		fs.writeFileSync("./config/config.json", data);
 	})
+	client.on("deleteEntry",function(data){
+		fs.unlinkSync("./json/"+data[1]+"/"+data[0])
+		io.emit("deleteConfirm")
+	})
 })
 server.listen(1337);
 var da = new Date();
