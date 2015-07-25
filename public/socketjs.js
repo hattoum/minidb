@@ -69,6 +69,7 @@ $(document).ready(function() {
 		var ptel = $(".ptel").val();
 		var pdm = $(".pdm").val();
 		var pht = $(".pht").val();
+		var peofvm = $(".peofvm").val();
 		var pecho = $(".pecho").val();
 		var psmoking = $(".psmoking").val();
 		var pch = $(".pch").val();
@@ -93,7 +94,8 @@ $(document).ready(function() {
 				
 				"Impression": pimpression,
 				"Plan": pplan,
-
+				"EndOfVisitMedication":peofvm,
+				
 				"Telphone": ptel,
 				"DM": pdm,
 				"Hypertension": pht,
@@ -114,6 +116,11 @@ $(document).ready(function() {
 		dirName = $(".searchtxt").val();
 		socket.emit("clientQuery", $(".searchtxt").val());
 	});
+	socket.on("history",function(data){
+		data.forEach(function(entry){
+			$(".historyContainer").append("<p class='echoHistory'>"+entry[0]+": "+entry[1]+"</p>")
+		})
+	})
 	socket.on("serverQuery", function(data){
 		$(".patientVisits").remove();
 		data.forEach(function(entry){
@@ -165,7 +172,7 @@ $(document).ready(function() {
 		$(".call").on("click",".patientVisits", function(){
 			$(".dateItem").remove();
 			$(".trash").remove()
-			$(this).prepend("<img src='images/trash.png' class = 'trash'>")
+			$(this).prepend("<div class= 'trash'><div class='trashIn'></div></div>")
 			var clickedDate = $(this).text();
 			socket.emit("visitQuery", {"dir":dirName, "date":clickedDate});
 			
@@ -176,10 +183,12 @@ $(document).ready(function() {
 			$(this).parent().velocity("slideUp")
 		});
 		socket.on("jsonQuery", function(data){
-			var keyArray=["Age","Complaints","HeartRate","bloodpressure","GeneralExamination","LocalExamination",
-			"details", "ECG","Echo","Lab","Other","Impression","Plan","Medication","Telphone","DM","Hypertension",
+			var keyArray=["Age","Complaints","RelatedHistory","Medication","UnrelatedHistory","FamilyHistory",
+			"Examination", "ECG","Echo","Others","Lab","Impression","Plan","Telphone","DM","Hypertension",
 			"Smoking","CardiacHistory","GeneralHistory"];
-			keyArray.forEach(function(entry){
+
+			$.each(data,function(entry){
+				console.log(data[entry])
 				$("<p class='dateItem'>"+entry+": "+data[entry]+"</p>").appendTo(".call").velocity("slideDown",100);
 			})
 		});
@@ -198,7 +207,7 @@ $(document).ready(function() {
 		});
 		socket.on("deleteConfirm",function(){
 			console.log("heh")
-			setTimeout(function(){$(".dateItem").remove()},10);
+			setTimeout(function(){$(".dateItem").remove()},50);
 
 		})
 		$(".config").on("click",".configbtn",function(event){
@@ -227,6 +236,16 @@ $(document).ready(function() {
 			$(".entry input").val("")
 
 		});
+
+		$(".pecho").on("focus",function(){
+			$(".historyContainer").velocity("fadeIn")
+			socket.emit("giffHistory",$(".pname").val())
+		})
+		$(".pecho").on("blur",function(){
+			$(".historyContainer").velocity("fadeOut");
+			$(".historyContainer").children().remove()
+		})
+		$(".historyContainer").css("top",$(".historyContainer").height-$(window).height())
 
 		//dragula([document.querySelector('.patientVisits'), document.querySelector('.trashon')]);
 });			

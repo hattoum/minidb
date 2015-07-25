@@ -7,13 +7,12 @@ var cdb = require("./cdb.js");
 var fs = require("fs");
 var path = require("path");
 app.use(express.static(__dirname+"/public"));
-try{
-	fs.unlinkSync("./updates");
-}
-catch(err){
-	console.log("Remember to check for updates!")
-}
+
+
+console.log("Remember to check for updates!")
+
 io.on("connection", function(client){
+
 	client.on("clientNewEntry",function(data){
 		var dataStr = JSON.stringify(data);
 		var dataEntry = data.EntryName;
@@ -60,6 +59,12 @@ io.on("connection", function(client){
 	client.on("deleteEntry",function(data){
 		fs.unlinkSync("./json/"+data[1]+"/"+data[0])
 		io.emit("deleteConfirm")
+	})
+	client.on("giffHistory",function(data){
+		try{
+			io.emit("history",cdb.getHistory(data))
+		}
+		catch(err){}
 	})
 })
 server.listen(1337);
