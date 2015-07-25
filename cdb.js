@@ -9,8 +9,14 @@ function setdb(name, params,entryname){
 	else{
 		filename = date
 	}
-	fs.mkdir("json/"+name);
-	fs.writeFile("json/"+name+"/"+filename+".json", params, function(err){console.log(err)});
+	fs.mkdir("json/"+name,function(e){
+   		if(!e || (e && e.code === 'EEXIST')){
+        	fs.writeFile("json/"+name+"/"+filename+".json", params, function(err){console.log(err)});
+    	} else {
+        	//debug
+        	console.log(e);
+    	}
+	});
 }
 function getdb(name){
 	var dirray = fs.readdirSync("json/"+name);
