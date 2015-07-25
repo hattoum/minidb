@@ -76,6 +76,8 @@ $(document).ready(function() {
 		var pgh = $(".pgh").val();
 		var prelatedhistory = $(".prelatedhistory").val();
 		var pentryname = $(".pentryname").val();
+		if(pname != ""){
+			$(".pname").css("border","#ccc solid 1px")
 		socket.emit("clientNewEntry", 
 			{
 				"Name": pname,
@@ -104,9 +106,12 @@ $(document).ready(function() {
 				"EntryName": pentryname,
 				"details": pdetails
 			});
+		}else{
+			$(".pname").css("border","#f00 solid 1px")
+		}
 		});
 	socket.on("done", function(data){
-	$("input").val("");
+	$(".add").children().children().val("");
 	$("texarea").text("");
 	$("<a class='done'>"+data+"</a>").appendTo(".add").css({position: "fixed", left: ($(window).width()*0.45)+"px", bottom: ($(window).height()*0.9)+"px"}).velocity("fadeIn",1100).velocity("fadeOut",2000);
 	});
@@ -124,7 +129,10 @@ $(document).ready(function() {
 	socket.on("serverQuery", function(data){
 		$(".patientVisits").remove();
 		data.forEach(function(entry){
-			$("<div class='patientVisits'><span>"+entry+"</span></div>").appendTo(".call");
+			if(entry == ""){}
+			else{
+				$("<div class='patientVisits'><span>"+entry+"</span></div>").appendTo(".call");
+			}
 		})
 	});
 	socket.on("noResults", function(data){
@@ -188,8 +196,9 @@ $(document).ready(function() {
 			"Smoking","CardiacHistory","GeneralHistory"];
 
 			$.each(data,function(entry){
-				console.log(data[entry])
-				$("<p class='dateItem'>"+entry+": "+data[entry]+"</p>").appendTo(".call").velocity("slideDown",100);
+				if(data[entry] != ""){
+					$("<p class='dateItem'>"+entry+": "+data[entry]+"</p>").appendTo(".call").velocity("slideDown",100);
+				}
 			})
 		});
 		socket.on("jsonQueryFail",function(data){
@@ -206,7 +215,6 @@ $(document).ready(function() {
 			})
 		});
 		socket.on("deleteConfirm",function(){
-			console.log("heh")
 			setTimeout(function(){$(".dateItem").remove()},50);
 
 		})
