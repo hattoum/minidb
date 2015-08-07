@@ -8,20 +8,35 @@ var fs = require("fs");
 var path = require("path");
 app.use(express.static(__dirname+"/public"));
 
+//\**********Functions******************\//
+
+function mergeJSON(one,two){
+	for (i in two) {
+		if(i != one[i]){
+			one[i] = two[i];
+		}
+	};
+
+	return one
+}
+
+//\**********Functions******************\//
 
 console.log("Remember to check for updates!")
 
 io.on("connection", function(client){
 
 	client.on("clientNewEntry",function(data){
+		var newPerm = data.perm;
+		delete data.perm;
 		var dataStr = JSON.stringify(data);
 		var dataEntry = data.EntryName;
 		var dataName = data.Name;
-		cdb.setdb(dataName, dataStr, dataEntry);
+		cdb.setdb(dataName, dataStr, dataEntry,newPerm);
 		io.emit("done", "Entry Successful");
 	});
 	client.on("clientQuery", function(data){
-		if (fs.existsSync('./json/'+data)) { 
+		if (fs.existsSync('./json/'+data)) {
   			io.emit("serverQuery", cdb.getdb(data));
 
 		} 
@@ -43,6 +58,14 @@ io.on("connection", function(client){
 		}
 
 	});
+	client.on("giffPermData",function(data){
+		try{
+			var jsonPerm = JSON.parse(fs.readFileSync("./json/"+data+"/perm.json"))
+			io.emit("permData",jsonPerm)
+		}
+		catch(err){
+		}
+	})
 	client.on("getAllPatientsCreate", function(data){
 		io.emit("patientsArrayCreate", fs.readdirSync("./json"));
 	})
